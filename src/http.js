@@ -1,9 +1,9 @@
 import fetch from '@system.fetch'
 import prompt from '@system.prompt';
-let BASE_URL = 'http://api.tianapi.com/txapi/godreply'
+let BASE_URL = 'http://api.tianapi.com/txapi/tiangou'
 
 if(process.env.NODE_ENV === 'production') {
-  BASE_URL = "http://api.tianapi.com/txapi/godreply"
+  BASE_URL = "http://api.tianapi.com/txapi/tiangou"
 }
 const http = {
   get: function (url, params, options = {}) {

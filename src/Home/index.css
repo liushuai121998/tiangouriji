@@ -2,51 +2,76 @@
     background-image: url(../Common/bg.png);
     display: flex;
     flex-direction: column;
-    /* height: 100%; */
+    position: relative;
+    padding-bottom: 180px;
+  }
+  .title {
+    position: absolute;
+    width: 100%;
+    top: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title__icon {
+      height: 180px;
+  }
+  .title__sub-icon {
+      position: absolute;
+      /* left: 50%;
+      transform: translateX(-50%); */
+      top: 130px;
+      height: 50px;
+  }
+  .title text {
+      font-size: 90px;
+      font-weight: bold;
+      color: #fff;
+      font-family: 'ZhenyanGB-Regular';
+  }
+  .title__image {
+      width: 220px;
+      /* height: 100px; */
   }
   .main {
-    margin-top: 475px;
+    margin-top: 520px;
     display: flex;
     flex-direction: column;
+    padding: 0 50px;
   }
   .content {
-    padding: 0 50px;
     display: flex;
     flex-direction: column;
-    height: 600px;
+    border-radius: 20px;
   }
   .content-item {
     display: flex;
     flex-direction: column;
     padding: 20px 50px;
-    background-color: #fff;
-    border-radius: 20px;
     opacity: 0.93;
+    height: 500px;
+    border-radius: 20px;
+    background-color: #fff;
+    position: relative;
   }
-  .content__title, .content__reply {
+  .content__reply {
     display: flex;
     flex-direction: column;
-    padding: 30px 0;
+    /* padding: 30px 0; */
   }
-  .content__title {
-    border-bottom-color: #EBEBEB;
-    border-bottom-width: 2px;
-  }
-  .content__title text, .content__reply text {
+  .content__reply text {
     font-size: 28px;
     color: #333;
     line-height: 42px;
-  }
-  .content__title .font-weight, .content__reply .font-weight {
-      color: #999;
-  } 
-  .font-weight {
-    font-weight: bold;
   }
   .content__copy {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: auto;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
   }
   .content__copy__icon {
       width: 26px;
@@ -67,6 +92,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: 75px;
   }
   .recharge__icon {
       width: 28px;
