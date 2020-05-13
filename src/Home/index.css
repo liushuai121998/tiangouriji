@@ -42,7 +42,9 @@
   .content {
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    /* border-radius: 20px 20px 0 0; */
   }
   .content-item {
     display: flex;
@@ -50,14 +52,14 @@
     padding: 20px 50px;
     opacity: 0.93;
     height: 500px;
-    border-radius: 20px;
+    /* border-radius: 20px 20px 0 0; */
     background-color: #fff;
-    position: relative;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
   .content__reply {
     display: flex;
     flex-direction: column;
-    /* padding: 30px 0; */
   }
   .content__reply text {
     font-size: 28px;
@@ -68,10 +70,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: auto;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
+    background-color: #fff;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    opacity: 0.93;
   }
   .content__copy__icon {
       width: 26px;

@@ -15,11 +15,11 @@
             <list-item class="content__reply">
               <text>{{item.content}}</text>
             </list-item>
-            <div class="content__copy">
-              <image src="/Common/copy-icon.png" class="content__copy__icon"></image>
-              <text class="content__copy__text">长按进行复制</text>
-            </div>
           </list>
+          <div class="content__copy" onlongpress="longPress(item)">
+            <image src="/Common/copy-icon.png" class="content__copy__icon"></image>
+            <text class="content__copy__text">长按进行复制</text>
+          </div>
         </block>
       </div>
       <div class="recharge-btn" onclick="getData">
