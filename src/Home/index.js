@@ -7,11 +7,13 @@ export default Custom_page({
   private: {
     newsList: [],
     footerAdShow: false,
-    modalShow: false
+    modalShow: false,
+    dateNow: ''
   },
   onInit() {
       this.getData()
     //   this.queryFooterAd()
+    this.dateNow = this.$app.$def.parseTime(Date.now(), '{y}-{m}-{d}')
   },
   async getData() {
     const $appDef = this.$app.$def

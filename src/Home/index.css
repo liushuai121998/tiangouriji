@@ -154,3 +154,8 @@
       border-radius: 20px;
       position: relative;
   }
+
+  .content__reply .time {
+      color: #999;
+      margin-bottom: 10px;
+  }

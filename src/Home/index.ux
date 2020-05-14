@@ -12,7 +12,8 @@
       <div class="content">
         <block for="{{item in newsList}}">
           <list class="content-item" onlongpress="longPress(item)">
-            <list-item class="content__reply">
+            <list-item type="content-reply" class="content__reply">
+              <text class="time">{{dateNow}}</text>
               <text>{{item.content}}</text>
             </list-item>
           </list>
