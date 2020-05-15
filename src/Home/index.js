@@ -8,12 +8,15 @@ export default Custom_page({
     newsList: [],
     footerAdShow: false,
     modalShow: false,
-    dateNow: ''
+    dateNow: '',
+    footerAd: {}
   },
   onInit() {
-      this.getData()
+    this.getData()
     //   this.queryFooterAd()
     this.dateNow = this.$app.$def.parseTime(Date.now(), '{y}-{m}-{d}')
+    this.insertAd()
+    this.queryFooterAd()
   },
   async getData() {
     const $appDef = this.$app.$def
@@ -39,33 +42,50 @@ export default Custom_page({
       this.nativeAd && this.nativeAd.destroy()
   },
   queryFooterAd() {
+    if(!ad.createNativeAd) {
+      return 
+    }
     //   原生广告
-    this.nativeAd =   ad.createNativeAd({
-        adUnitId: ''
+    this.nativeAd = ad.createNativeAd({
+        adUnitId: 'f9beec05c09d4575b689c2c094ef25b7'
     })
-    this.nativeAd.load((res) => {
-        console.log(res)
-    }, (fail) => {
-        console.log(fail)
+    this.nativeAd.load()
+    this.nativeAd.onLoad((res) => {
+      this.footerAd = res.adList[0]
+      // prompt.showToast({
+      //   message: this.footerAd
+      // })
+      this.footerAdShow = true
     })
-    // 上报广告曝光
-    this.nativeAd.reportAdShow({
-        adId: ""
+    // // 上报广告曝光
+    // this.nativeAd.reportAdShow({
+    //     adId: ""
+    // })
+    // // 上报广告点击
+    // this.nativeAd.reportAdClick({
+    //     adId: ""
+    // })
+  },
+  reportAdClick() {
+    this.nativeAd && this.nativeAd.reportAdClick({
+        adId: this.footerAd.adId
     })
-    // 上报广告点击
-    this.nativeAd.reportAdClick({
-        adId: ""
+  },
+  reportAdShow() {
+    this.nativeAd && this.nativeAd.reportAdShow({
+        adId: this.footerAd.adId
     })
   },
 //   插屏广告
   insertAd() {
-    this.interstitialAd = ad.createInterstitialAd({
-        adUnitId: ''
-    })
-    this.interstitialAd.onLoad(()=> {
-        console.log("插屏广告加载成功");
-        this.interstitialAd.show();
-    })
+    if(ad.createInterstitialAd) {
+      this.interstitialAd = ad.createInterstitialAd({
+          adUnitId: '6725456cd28d46f18f94bee23e748936'
+      })
+      this.interstitialAd.onLoad(()=> {
+          this.interstitialAd.show();
+      })
+    }
   },
   onHide() {
     this.interstitialAd && this.interstitialAd.destroy() 

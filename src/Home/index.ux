@@ -27,14 +27,21 @@
         <image class="recharge__icon" src="/Common/change-icon.png"></image>
         <text class="recharge__text">换一句</text>
       </div>
-      <div class="footer-ad" if="footerAdShow">
+      <div class="footer-ad" if="{{footerAdShow}}" onclick="reportAdClick" onappear="reportAdShow">
         <div class="footer-ad__img">
-          <image></image>
+          <block if="{{footerAd.icon}}">
+            <image class="footer-ad__img__icon" src="{{footerAd.icon}}"></image>
+          </block>
+          <image class="footer-ad__img__main" src="{{footerAd.imgUrlList ? footerAd.imgUrlList[0] : ''}}"></image>
+          <text class="click-btn__text">{{footerAd.clickBtnText || '查看详情'}}</text>
         </div>
-        <image onclick="hideFooterAd" class="close" src="/Common/close.png"></image>
+        <div class="ad-tip">
+          <text>广告</text>
+        </div>
+        <!-- <image onclick="hideFooterAd" class="close footer-close" src="/Common/close.png"></image> -->
       </div>
     </div>
-    <div class="modal" if="modalShow">
+    <div class="modal" if="{{modalShow}}">
       <div class="mask">
       </div>
       <div class="modal-content">
