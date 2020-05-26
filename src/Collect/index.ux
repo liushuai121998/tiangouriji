@@ -1,0 +1,29 @@
+<template>
+    <div class="collect">
+        <div class="title">
+            <text>我的收藏</text>
+        </div>
+        <div class="list">
+            <block if="{{list.length > 0}}" for="{{(index, item) in list}}">
+                <div key="{{index}}" class="list__item" onlongpress="longpress(index)">
+                    <text class="list__item__index" >{{index + 1}}</text>
+                    <text class="list__item__text">{{item}}</text>
+                </div>
+            </block>
+            <block else>
+                <div class="add-collect">
+                    <image src="/Common/add-collect.png"></image>
+                </div>
+            </block>
+        </div>
+    </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style>
+@import './index.css';
+</style>
+
+

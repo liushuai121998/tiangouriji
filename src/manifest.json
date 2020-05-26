@@ -32,6 +32,9 @@
     "pages": {
       "Home": {
         "component": "index"
+      },
+      "Collect": {
+        "component": "index"
       }
     },
     "widgets": {
@@ -51,6 +54,11 @@
     "pages": {
       "Home": {
         "titleBarText": "舔狗日记",
+        "menu": false,
+        "titleBar": false
+      },
+      "Collect": {
+        "titleBarText": "我的收藏",
         "menu": false,
         "titleBar": false
       }

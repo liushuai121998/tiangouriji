@@ -9,7 +9,10 @@ export default Custom_page({
     footerAdShow: false,
     modalShow: false,
     dateNow: '',
-    footerAd: {}
+    footerAd: {},
+    currentIndex: 0,
+    collectIcon: '/Common/collect.png',
+    collectList: []
   },
   onInit() {
     this.getData()
@@ -17,12 +20,34 @@ export default Custom_page({
     this.dateNow = this.$app.$def.parseTime(Date.now(), '{y}-{m}-{d}')
     this.insertAd()
     this.queryFooterAd()
+    this.$watch('currentIndex', () => {
+      if(this.currentIndex === 0) {
+        this.getData()
+      }
+    }) 
   },
   async getData() {
     const $appDef = this.$app.$def
     const {data} = await $appDef.$http.get(`/index?key=${$appDef.key}`)
     if(data.code === 200) {
       this.newsList = data.newslist
+      $appDef.storageHandle.get('list').then(d => {
+        if(d) {
+          try{
+            let res = JSON.parse(d)
+            this.collectList = [...res]
+            if(this.newsList[0] && res.indexOf(this.newsList[0].content) >= 0) {
+              this.collectIcon = '/Common/collect-active.png'
+            } else {
+              this.collectIcon = '/Common/collect.png'
+            }
+          }catch(err) {
+            this.collectIcon = '/Common/collect.png'
+          }
+        } else {
+          this.collectIcon = '/Common/collect.png'
+        }
+      })
     }
   },
   onShow() {
@@ -91,6 +116,41 @@ export default Custom_page({
     this.interstitialAd && this.interstitialAd.destroy() 
   },
   closeModal() {
-      this.modalShow = false
+    this.modalShow = false
+  },
+  changeTabactive(e) {
+    this.currentIndex = e.index
+  },
+  collect(item) {
+    const $appDef = this.$app.$def
+    $appDef.storageHandle.get('list').then(d => {
+      if(d) {
+        try{
+          let data = JSON.parse(d)
+          // prompt.showToast({
+          //   message: data
+          // })
+          if(data.indexOf(item.content) < 0) {
+            data.push(item.content)
+            $appDef.storageHandle.set('list', JSON.stringify(data)).then(res => {
+              this.collectList = [...data]
+              prompt.showToast({
+                message: '收藏成功'
+              })
+            })
+          }
+        } catch(err) {
+          console.log(err)
+        }
+      } else {
+        $appDef.storageHandle.set('list', JSON.stringify([item.content])).then(res => {
+          this.collectList = [item.content]
+          prompt.showToast({
+            message: '收藏成功'
+          })
+        })
+      }
+    })
+    this.collectIcon = '/Common/collect-active.png'
   }
 })

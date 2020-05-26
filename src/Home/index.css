@@ -1,5 +1,8 @@
-  .home {
+  .page {
     background-image: url(../Common/bg.png);
+  }
+  .home {
+    /* background-image: url(../Common/bg.png); */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -108,7 +111,7 @@
 
   .footer-ad {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 120px;
       margin-top: 40px;
       border-radius: 20px;
       background-color: #E2E2E2;
@@ -193,4 +196,27 @@
   .content__reply .time {
       color: #999;
       margin-bottom: 10px;
+      line-height: 40px;
+  }
+
+  .tab-bar {
+      background-color: #fff;
+  }
+
+  .tab-bar text {
+      color: #000;
+  }
+  .tab-bar .active {
+      color: #EA2734;
+  }
+
+  .content__reply__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .content__reply__header .collect-icon {
+      width: 40px;
+      height: 40px;
   }
