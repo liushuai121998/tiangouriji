@@ -1,25 +1,36 @@
 import prompt from '@system.prompt';
+import ad from '@service.ad';
+import router from '@system.router';
 export default Custom_page({
     data: {
-        list: []
+        list: [],
+        currentIndex: 1,
+        visible: false
     },
     onInit() {
+        this.createBanner()
         // this.queryList()
-    },
-    queryList() {
-        const $appDef = this.$app.$def 
-        $appDef.storageHandle.get('list').then(d => {
-            if(d) {
-                try {
-                    this.list = JSON.parse(d)
-                    prompt.showToast({
-                        message: this.list
-                    })
-                } catch(err) {
-                    console.log(err)
-                }
+        this.$watch('visible', () => {
+            // prompt.showToast({
+            //     message: this.visible
+            // })
+            if(this.visible) {
+                this.bannerAd && this.bannerAd.show()
             }
         })
+    },
+    queryList() {
+        const $appDef = this.$app.$def
+        $appDef.storageHandle.get('list').then(d => {
+            if(d) {
+              try{
+                let res = JSON.parse(d)
+                this.list = [...res]
+              }catch(err) {
+                  console.log(err)
+              }
+            }
+          })
     },
     longpress(index) {
         prompt.showDialog({
@@ -36,12 +47,14 @@ export default Custom_page({
                 }
             ],
             success: (data) => {
-                this.list.splice(index, 1)
-                this.$app.$def.storageHandle.set('list', JSON.stringify(this.list)).then(res => {
-                    prompt.showToast({
-                        message: '取消收藏成功'
+                if(data.index === 0) {
+                    this.list.splice(index, 1)
+                    this.$app.$def.storageHandle.set('list', JSON.stringify(this.list)).then(res => {
+                        prompt.showToast({
+                            message: '取消收藏成功'
+                        })
                     })
-                })
+                }
             },
             cancel: function() {
                 console.log('handling cancel')
@@ -50,5 +63,22 @@ export default Custom_page({
                 console.log(`handling fail, code = ${code}`)
             }
         })
+    },
+    createBanner() {
+        this.bannerAd =  ad.createBannerAd({
+            adUnitId: '40fd7b8cc5094f47aa45b52ebe68c07a',
+            style:{
+                left:0,
+                top: 1000,
+                width: 750,
+                height: 400
+            }
+        })
+        
+    },
+    toHome() {
+        router.replace({
+            uri: '/Home'
+          })
     }
 })

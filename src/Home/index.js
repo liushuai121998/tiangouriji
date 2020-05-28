@@ -152,5 +152,10 @@ export default Custom_page({
       }
     })
     this.collectIcon = '/Common/collect-active.png'
+  },
+  toCollect() {
+    router.replace({
+      uri: '/Collect'
+    })
   }
 })

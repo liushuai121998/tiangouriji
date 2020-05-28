@@ -1,10 +1,13 @@
+.page {
+    background-image: url(../Common/bg.png);
+  }
 .collect {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 .title {
-    margin-top: 200px;
+    margin-top: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -47,7 +50,7 @@
 }
 .add-collect {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 200px;
@@ -55,4 +58,15 @@
 .add-collect image {
     width: 300px;
     height: 300px;
+}
+
+.tab-bar {
+    background-color: #fff;
+}
+
+.tab-bar text {
+    color: #000;
+}
+.tab-bar .active {
+    color: #EA2734;
 }

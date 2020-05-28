@@ -61,7 +61,7 @@
             </div>
           </div>
           <div class="tab-content-section">
-            <collect-page list="{{collectList}}"></collect-page>
+            <collect-page visible="{{currentIndex === 1}}" list="{{collectList}}"></collect-page>
           </div>
       </tab-content>
       <tab-bar class="tab-bar">
