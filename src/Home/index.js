@@ -127,9 +127,6 @@ export default Custom_page({
       if(d) {
         try{
           let data = JSON.parse(d)
-          // prompt.showToast({
-          //   message: data
-          // })
           if(data.indexOf(item.content) < 0) {
             data.push(item.content)
             $appDef.storageHandle.set('list', JSON.stringify(data)).then(res => {

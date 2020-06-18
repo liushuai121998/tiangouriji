@@ -16,6 +16,8 @@ export default Custom_page({
             // })
             if(this.visible) {
                 this.bannerAd && this.bannerAd.show()
+            } else {
+                this.bannerAd && this.bannerAd.hide()
             }
         })
     },
@@ -69,7 +71,7 @@ export default Custom_page({
             adUnitId: '40fd7b8cc5094f47aa45b52ebe68c07a',
             style:{
                 left:0,
-                top: 1000,
+                top: 1300,
                 width: 750,
                 height: 400
             }
