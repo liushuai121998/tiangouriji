@@ -2,6 +2,8 @@ import router from '@system.router'
 import clipboard from '@system.clipboard'
 import prompt from '@system.prompt'
 import ad from '@service.ad'
+import device from '@system.device'
+
 export default Custom_page({
   // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
   private: {
@@ -14,12 +16,18 @@ export default Custom_page({
     collectIcon: '/Common/collect.png',
     collectList: []
   },
-  onInit() {
+  async onInit() {
     this.getData()
     //   this.queryFooterAd()
     this.dateNow = this.$app.$def.parseTime(Date.now(), '{y}-{m}-{d}')
-    this.insertAd()
-    this.queryFooterAd()
+    const deviceInfo = await device.getInfo()
+    const brand = deviceInfo.data.brand
+    if(brand === 'OPPO') {
+      console.log('xxx')
+    } else if(brand === 'vivo') {
+      this.insertAd()
+      this.queryFooterAd()
+    }
     this.$watch('currentIndex', () => {
       if(this.currentIndex === 0) {
         this.getData()
@@ -107,7 +115,7 @@ export default Custom_page({
       this.interstitialAd = ad.createInterstitialAd({
           adUnitId: '6725456cd28d46f18f94bee23e748936'
       })
-      this.interstitialAd.onLoad(()=> {
+      this.interstitialAd && this.interstitialAd.onLoad(()=> {
           this.interstitialAd.show();
       })
     }

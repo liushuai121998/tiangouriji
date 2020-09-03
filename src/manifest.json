@@ -1,8 +1,8 @@
 {
   "package": "com.tiangouriji.package",
   "name": "一同舔狗日记",
-  "versionName": "1.0.4",
-  "versionCode": "4",
+  "versionName": "1.0.8",
+  "versionCode": "8",
   "minPlatformVersion": "1060",
   "icon": "/Common/logo.png",
   "features": [
@@ -15,9 +15,18 @@
     {
       "name": "system.shortcut"
     },
-    { "name": "system.fetch" },
-    { "name": "system.clipboard" },
-    {"name":"service.ad"}
+    {
+      "name": "system.fetch"
+    },
+    {
+      "name": "system.clipboard"
+    },
+    {
+      "name": "service.ad"
+    },
+    {
+      "name": "system.device"
+    }
   ],
   "permissions": [
     {
@@ -25,7 +34,8 @@
     }
   ],
   "config": {
-    "logLevel": "off"
+    "logLevel": "off",
+    "designWidth": 720
   },
   "router": {
     "entry": "Home",
@@ -38,12 +48,37 @@
       }
     },
     "widgets": {
-      "CardDemo": {
-        "name": "CardDemo",
-        "description": "快应用卡片展示",
-        "component": "index",
-        "path": "/CardDemo",
-        "features": []
+      "Card": {
+        "name": "舔狗日记",
+        "description": "舔狗日记",
+        "component": "home",
+        "path": "/Card",
+        "features": [
+          {
+            "name": "system.router"
+          },
+          {
+              "name": "system.fetch"
+          },
+          {
+              "name": "system.prompt"
+          },
+          {
+              "name": "system.network"
+          },
+          {
+              "name": "system.storage"
+          }
+        ],
+        "minPlatformVersion": 1060,
+        "targetManufactorys": [
+          "vivo"
+        ],
+        "params": {
+          "title": "noTitle",
+          "height": "33.3%",
+          "enableFold": false
+        }
       }
     }
   },

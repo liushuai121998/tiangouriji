@@ -1,0 +1,227 @@
+<template>
+  <div class="card">
+      <div class="card__content" if="{{hideLoadingPage}}">
+        <div class="content">
+          <div class="content__title">
+            <text>{{dateNow}}</text>
+          </div>
+          <div class="content__text" @click="toHome">
+            <text>{{news.content}}</text>
+          </div>
+        </div>
+        <div class="info">
+          <text @click="changeOne">换一个</text>
+          <text @click="toHome">查看更多</text>
+        </div>
+      </div>
+      <div class="hide-page" if="{{!hideLoadingPage}}">
+        <div class="hide-page__text" if="{{!showLoading}}">
+          <text class="fail-text">数据加载失败，</text>
+          <text class="retry-text" onclick="refresh">请点击重试</text>
+        </div>
+        <div class="loading" if="{{showLoading}}">
+          <text class="loading-text">正在加载中...</text>
+        </div>
+      </div>
+  </div>
+</template>
+
+<style>
+.card {
+  /* 以设计宽度720px为例 */
+  display: flex;
+  flex-direction: column;
+  /* height: 240px; */
+  width: 100%;
+  /* padding: 50px 35px; */
+  background-color: theme.backgroundColor; 
+  /* background-color: #fff; */
+  /* theme是动态主题变量，参考卡片文档“动态主题”章节 */
+  border-bottom-left-radius: theme.borderBottomRadius;
+  border-bottom-right-radius: theme.borderBottomRadius;
+  padding: 0 21px;
+}
+
+/* 不可展开卡片 大 381px 小 144px */
+.card__content,
+.hide-page {
+    width: 100%;
+    height: 381px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loading,
+.hide-page__text {
+    justify-content: center;
+}
+
+.loading-text,
+.fail-text,
+.retry-text {
+    color: #000;
+    font-size: 28px;
+    font-weight: 500;
+}
+.retry-text {
+    color: #456FFF;
+}
+
+.card__content {
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+  flex-direction: column;
+}
+.content__title, .content__text {
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+.content__title text {
+  font-size: 21px;
+  color: #666;
+}
+.content__text {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.content__text text {
+  font-size: 30px;
+  color: #000;
+  text-overflow: ellipsis;
+  lines: 7;
+}
+.info {
+  justify-content: space-between;
+  height: 84px;
+  width: 100%;
+  border-top-color: #E7E7E7;
+  border-top-width: 1px;
+}
+.info text {
+  flex: 1;
+  text-align: center;
+  font-family: HYQiHei;
+  color: #456FFF;
+  font-size: 30px;
+}
+</style>
+
+<script>
+import storage from '@system.storage'
+import router from '@system.router'
+import network from '@system.network'
+import http from '../http.js'
+import util from '../util'
+
+export default {
+  private: {
+    dateNow: '',
+    hideLoadingPage: false,
+    showLoading: true,
+    network: '',
+    news: {}
+  },
+  async ajaxData() {
+    const {data} = await http.get(`/index?key=${util.key}`)
+    if(data.code === 200) {
+      this.news = data.newslist ? data.newslist[0] : {}
+      storage.set({
+        key: 'news',
+        value: JSON.stringify(this.news),
+      })
+      this.showLoading = false
+      this.hideLoadingPage = true
+    }
+  },
+  onInit() {
+    this.dateNow = util.parseTime(Date.now(), '{y}.{m}.{d}')
+    this.changeOne()
+  },
+  onShow() {
+    this.changeOne()
+  },
+  getStorageData(isRefresh) {
+    storage.get({
+      key: 'news',
+      success: (data) => {
+        if(data) {
+          this.news = JSON.parse(data)
+          this.hideLoadingPage = true
+          this.showLoading = false
+        } else {
+          if(isRefresh) {
+            // 刷新
+            setTimeout(() => {
+              this.hideLoadingPage = false
+              this.showLoading = false
+            }, 1000)
+          } else {
+            this.hideLoadingPage = false
+            this.showLoading = false
+          }
+        }
+      },
+      fail: (err) => {
+        if(isRefresh) {
+          // 刷新
+          setTimeout(() => {
+            this.hideLoadingPage = false
+            this.showLoading = false
+          }, 1000)
+        } else {
+          this.hideLoadingPage = false
+          this.showLoading = false
+        }
+      }
+    })
+  },
+  // 获取网络状况
+  getNetwork() {
+    return new Promise((resolve, reject) => {
+      network.getType({
+        success: (data) => {
+          resolve(data)
+        },
+        fail: (data, code) => {
+          reject(data, code)
+        }
+      })
+    })
+  },
+  changeOne(isRefresh) {
+    this.showLoading = true
+    try {
+      this.getNetwork().then(({
+        type
+      }) => {
+        if (type != 'none') {
+          this.network = type
+          this.ajaxData()
+        } else {
+          this.network = 'none'
+          this.getStorageData(isRefresh)
+        }
+      })
+    } catch(err) {
+      this.getStorageData(isRefresh)
+    }
+    setTimeout(() => {
+      if (!this.news.content) {
+        this.getStorageData(isRefresh)
+      }
+    }, 5000)
+  },
+  refresh() {
+    this.changeOne(true)
+  },
+  toHome() {
+    router.push({
+      uri: `hap://app/com.tiangouriji.package/Home`,
+    })
+  }
+}
+</script>

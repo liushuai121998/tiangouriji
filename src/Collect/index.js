@@ -1,19 +1,22 @@
 import prompt from '@system.prompt';
 import ad from '@service.ad';
 import router from '@system.router';
+import device from '@system.device'
 export default Custom_page({
     data: {
         list: [],
         currentIndex: 1,
         visible: false
     },
-    onInit() {
-        this.createBanner()
-        // this.queryList()
+    async onInit() {
+        const deviceInfo = await device.getInfo()
+        const brand = deviceInfo.data.brand
+        if(brand === 'OPPO') {
+            console.log('xxx')
+        } else if(brand === 'vivo') {
+            this.createBanner()
+        }
         this.$watch('visible', () => {
-            // prompt.showToast({
-            //     message: this.visible
-            // })
             if(this.visible) {
                 this.bannerAd && this.bannerAd.show()
             } else {
@@ -76,7 +79,6 @@ export default Custom_page({
                 height: 400
             }
         })
-        
     },
     toHome() {
         router.replace({

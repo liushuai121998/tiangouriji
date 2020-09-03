@@ -171,5 +171,6 @@ export default {
   showMenu,
   createShortcut,
   parseTime,
-  storageHandle
+  storageHandle,
+  key: '24d597138c99ebe0e5153d2705e37550'
 }
