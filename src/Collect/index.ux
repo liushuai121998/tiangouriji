@@ -1,46 +1,16 @@
 <import name="short-cut" src="../components/shortcut"></import>
 <template>
-    <!-- <div class="page">
-    <tabs onchange="changeTabactive" index="{{currentIndex}}">
-      <tab-content class="tab-content">
-          <div class="tab-content-section">
-            <div class="collect">
-                <div class="title">
-                    <text>我的收藏</text>
-                </div>
-                <div class="list">
-                    <block if="{{list.length > 0}}" for="{{(index, item) in list}}">
-                        <div key="{{index}}" class="list__item" onlongpress="longpress(index)">
-                            <text class="list__item__index" >{{index + 1}}</text>
-                            <text class="list__item__text">{{item}}</text>
-                        </div>
-                    </block>
-                    <block else>
-                        <div class="add-collect" onclick="{{toHome}}">
-                            <image src="/Common/add-collect.png"></image>
-                            <text>快去收藏你喜欢的内容吧</text>
-                        </div>
-                    </block>
-                </div>
-            </div>
-          </div>
-      </tab-content>
-      <tab-bar class="tab-bar">
-        <text onclick="{{toHome}}">舔狗日记</text>
-        <text class="active">我的收藏</text>
-      </tab-bar>
-    </tabs>
-    <short-cut></short-cut>
-  </div> -->
     <div class="collect">
-        <div class="title">
-            <text>我的收藏</text>
+        <div class="header">
+            <div class="header__title">
+                <text>舔狗日记</text>
+            </div>
         </div>
         <list class="list">
             <block if="{{list.length > 0}}" for="{{(index, item) in list}}">
                 <list-item type="{{index}}" key="{{index}}" class="list__item" onlongpress="longpress(index)">
-                    <text class="list__item__index" >{{index + 1}}</text>
                     <text class="list__item__text">{{item}}</text>
+                    <text class="watch-text" @click="toDetail(item)">立即查看>></text>
                 </list-item>
             </block>
             <block else>
@@ -51,14 +21,13 @@
             </block>
         </list>
     </div>
-    
 </template>
 
 <script src="./index.js">
 </script>
 
-<style>
-@import './index.css';
+<style lang="less" scoped>
+@import './index.less';
 </style>
 
 

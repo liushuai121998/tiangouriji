@@ -1,0 +1,47 @@
+<import name="short-cut" src="../components/shortcut"></import>
+<import name="collect-page" src="../Collect/index.ux"></import>
+ 
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="page">
+    <div class="home">
+      <div class="header">
+        <div class="header__title">
+          <text>舔狗日记</text>
+        </div>
+      </div>
+      <div class="main">
+        <div class="content" @longpress="longPress">
+          <div class="content__reply">
+            <text>{{content}}</text>
+          </div>
+          <div class="back" @click="back">
+            <image src="/Common/return-page-icon.png"></image>
+            <text>返回</text>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-ad" if="{{footerAdShow}}" onclick="reportAdClick" onappear="reportAdShow">
+      <div class="footer-ad__img">
+        <block if="{{footerAd.icon}}">
+          <image class="footer-ad__img__icon" src="{{footerAd.icon}}"></image>
+        </block>
+        <image class="footer-ad__img__main" src="{{footerAd.imgUrlList ? footerAd.imgUrlList[0] : ''}}"></image>
+        <text class="click-btn__text">{{footerAd.clickBtnText || '查看详情'}}</text>
+      </div>
+      <div class="ad-tip">
+        <text>广告</text>
+      </div>
+    </div>
+    <short-cut></short-cut>
+  </div>
+</template>
+
+<script src="./index.js">
+</script>
+
+<style lang="less" scoped>
+  @import '../Common/css/footerAd.less';
+  @import './index.less';
+</style>

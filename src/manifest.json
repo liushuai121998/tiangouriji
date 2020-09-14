@@ -1,8 +1,8 @@
 {
   "package": "com.tiangouriji.package",
   "name": "一同舔狗日记",
-  "versionName": "1.0.8",
-  "versionCode": "8",
+  "versionName": "1.0.9",
+  "versionCode": "9",
   "minPlatformVersion": "1060",
   "icon": "/Common/logo.png",
   "features": [
@@ -35,7 +35,7 @@
   ],
   "config": {
     "logLevel": "off",
-    "designWidth": 720
+    "designWidth": 1080
   },
   "router": {
     "entry": "Home",
@@ -44,6 +44,9 @@
         "component": "index"
       },
       "Collect": {
+        "component": "index"
+      },
+      "Detail": {
         "component": "index"
       }
     },
@@ -94,6 +97,11 @@
       },
       "Collect": {
         "titleBarText": "我的收藏",
+        "menu": false,
+        "titleBar": false
+      },
+      "Detail": {
+        "titleBarText": "详情",
         "menu": false,
         "titleBar": false
       }

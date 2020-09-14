@@ -12,8 +12,9 @@ export default Custom_page({
     modalShow: false,
     dateNow: '',
     footerAd: {},
-    currentIndex: 0,
+    currentIndex: 1,
     collectIcon: '/Common/collect.png',
+    isCollect: false,
     collectList: []
   },
   async onInit() {
@@ -46,19 +47,21 @@ export default Custom_page({
             this.collectList = [...res]
             if(this.newsList[0] && res.indexOf(this.newsList[0].content) >= 0) {
               this.collectIcon = '/Common/collect-active.png'
+              this.isCollect = true
             } else {
               this.collectIcon = '/Common/collect.png'
+              this.isCollect = false
             }
           }catch(err) {
             this.collectIcon = '/Common/collect.png'
+            this.isCollect = false
           }
         } else {
           this.collectIcon = '/Common/collect.png'
+          this.isCollect = false
         }
       })
     }
-  },
-  onShow() {
   },
   longPress(item, e) {
     clipboard.set({
@@ -157,6 +160,7 @@ export default Custom_page({
       }
     })
     this.collectIcon = '/Common/collect-active.png'
+    this.isCollect = true
   },
   toCollect() {
     router.replace({

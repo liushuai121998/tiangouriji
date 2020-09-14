@@ -14,7 +14,7 @@ export default Custom_page({
         if(brand === 'OPPO') {
             console.log('xxx')
         } else if(brand === 'vivo') {
-            this.createBanner()
+            // this.createBanner()
         }
         this.$watch('visible', () => {
             if(this.visible) {
@@ -70,19 +70,29 @@ export default Custom_page({
         })
     },
     createBanner() {
-        this.bannerAd =  ad.createBannerAd({
-            adUnitId: '40fd7b8cc5094f47aa45b52ebe68c07a',
-            style:{
-                left:0,
-                top: 1300,
-                width: 750,
-                height: 400
-            }
-        })
+        if(ad.createBannerAd) {
+            this.bannerAd =  ad.createBannerAd({
+                adUnitId: '40fd7b8cc5094f47aa45b52ebe68c07a',
+                style:{
+                    left:0,
+                    top: 1300,
+                    width: 750,
+                    height: 400
+                }
+            })
+        }
     },
     toHome() {
         router.replace({
             uri: '/Home'
           })
+    },
+    toDetail(item) {
+        router.push({
+            uri: 'Detail',
+            params: {
+                content: item
+            }
+        })
     }
 })
